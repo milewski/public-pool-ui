@@ -2,9 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from '../../environments/environment';
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,9 +12,9 @@ export class WorkerService {
   ) { }
 
   public getGroupWorkerInfo(address: string, workerName: string): Observable<any> {
-    return this.httpClient.get(`${environment.API_URL}/api/client/${address}/${workerName}`);
+    return this.httpClient.get(`${process.env.NG_APP_API_URL}/api/client/${address}/${workerName}`);
   }
   public getWorkerInfo(address: string, workerName: string, workerId: string): Observable<any> {
-    return this.httpClient.get(`${environment.API_URL}/api/client/${address}/${workerName}/${workerId}`);
+    return this.httpClient.get(`${process.env.NG_APP_API_URL}/api/client/${address}/${workerName}/${workerId}`);
   }
 }

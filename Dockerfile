@@ -3,8 +3,8 @@ FROM node:22-alpine AS build
 ARG API_URL
 ARG STRATUM_URL
 
-ENV API_URL=${API_URL}
-ENV STRATUM_URL=${STRATUM_URL}
+ENV NG_APP_API_URL=${API_URL}
+ENV NG_APP_STRATUM_URL=${STRATUM_URL}
 
 RUN apk add --no-cache python3 make g++
 

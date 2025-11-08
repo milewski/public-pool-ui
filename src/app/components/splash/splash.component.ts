@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { combineLatest, map, Observable, shareReplay } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import { HashSuffixPipe } from '../../pipes/hash-suffix.pipe';
 import { AppService } from '../../services/app.service';
 import { bitcoinAddressValidator } from '../../validators/bitcoin-address.validator';
@@ -36,8 +35,8 @@ export class SplashComponent {
 
     this.info$ = this.appService.getInfo().pipe(shareReplay({ refCount: true, bufferSize: 1 }));
 
-    if (environment.STRATUM_URL.length > 1) {
-      this.stratumURL = environment.STRATUM_URL;
+    if (process.env.NG_APP_STRATUM_URL.length > 1) {
+      this.stratumURL = process.env.NG_APP_STRATUM_URL;
     } else {
       this.stratumURL = window.location.hostname + ':3333';
     }
