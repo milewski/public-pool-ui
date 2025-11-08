@@ -1,23 +1,18 @@
-############################
-# Docker build environment #
-############################
+FROM node:22-alpine AS build
 
-FROM node:lts-bookworm-slim AS build
+ARG API_URL
+ARG STRATUM_URL
 
-# Upgrade all packages and install dependencies
-RUN apt-get update \
-    && apt-get upgrade -y
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        python3 \
-        build-essential \
-    && apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ENV API_URL=${API_URL}
+ENV STRATUM_URL=${STRATUM_URL}
+
+RUN apk add --no-cache python3 make g++
 
 WORKDIR /build
 
 COPY . .
 
-# Build Public Pool UI using NPM
-RUN npm i && npm run build
+RUN npm ci && npm run build
 
 ############################
 # Docker final environment #
